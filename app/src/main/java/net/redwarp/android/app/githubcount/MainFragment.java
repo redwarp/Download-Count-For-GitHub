@@ -155,7 +155,7 @@ public class MainFragment extends Fragment {
                     mDataSource.open();
                     mDataSource.deleteProject(project);
                     mDataSource.close();
-                    ((BaseAdapter)mListView.getAdapter()).notifyDataSetChanged();
+                    queryProjects();
                 }
 
                 mode.finish();

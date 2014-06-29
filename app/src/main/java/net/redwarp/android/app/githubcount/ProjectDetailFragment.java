@@ -19,17 +19,18 @@ package net.redwarp.android.app.githubcount;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import net.redwarp.android.app.githubcount.data.Release;
-import net.redwarp.android.app.githubcount.data.adapters.ReleaseAdapter;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import net.redwarp.android.app.githubcount.data.Release;
+import net.redwarp.android.app.githubcount.data.adapters.ReleaseAdapter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -44,7 +45,7 @@ public class ProjectDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -114,5 +115,15 @@ public class ProjectDetailFragment extends Fragment {
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getActivity().finish();
+            return true;
+        } else {
+            return false;
+        }
     }
 }
