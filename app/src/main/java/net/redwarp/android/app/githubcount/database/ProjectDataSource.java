@@ -19,6 +19,7 @@ package net.redwarp.android.app.githubcount.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
 import net.redwarp.android.app.githubcount.data.Project;
 
@@ -29,6 +30,7 @@ public class ProjectDataSource {
     private SQLiteDatabase database;
     private ProjectSQLiteHelper dbHelper;
     private String[] allColumns = {ProjectSQLiteHelper.COLUMN_ID, ProjectSQLiteHelper.COLUMN_USER, ProjectSQLiteHelper.COLUMN_REPOSITORY};
+    private DataSetObserver mDataSetObserver = null;
 
     public ProjectDataSource(Context context) {
         dbHelper = new ProjectSQLiteHelper(context);
@@ -52,6 +54,9 @@ public class ProjectDataSource {
         } else {
             database.update(ProjectSQLiteHelper.TABLE_PROJECTS, values, ProjectSQLiteHelper.COLUMN_ID + " = " + project.id, null);
         }
+        if(mDataSetObserver != null){
+            mDataSetObserver.onChanged();
+        }
     }
 
     public void deleteProject(Project project) {
@@ -60,11 +65,15 @@ public class ProjectDataSource {
         }
         if (database.delete(ProjectSQLiteHelper.TABLE_PROJECTS, ProjectSQLiteHelper.COLUMN_ID + " = " + project.id, null) > 0) {
             project.id = -1;
+
+            if(mDataSetObserver != null){
+                mDataSetObserver.onChanged();
+            }
         }
     }
 
     public List<Project> getAllProjects() {
-        Cursor cursor = database.query(ProjectSQLiteHelper.TABLE_PROJECTS, allColumns, null, null, null, null, null, null);
+        Cursor cursor = getAllProjectsCursor();
         List<Project> projects = new ArrayList<>(cursor.getCount());
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -77,7 +86,19 @@ public class ProjectDataSource {
         return projects;
     }
 
+    public Cursor getAllProjectsCursor(){
+        return database.query(ProjectSQLiteHelper.TABLE_PROJECTS, allColumns, null, null, null, null, null, null);
+    }
+
     private Project cursorToProject(Cursor cursor) {
         return new Project(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
+    }
+
+    public void registerDataSetObserver(DataSetObserver observer) {
+        mDataSetObserver = observer;
+    }
+
+    public void unregisterDataSetObserver(DataSetObserver observer) {
+        mDataSetObserver = null;
     }
 }

@@ -19,11 +19,14 @@ package net.redwarp.android.app.githubcount;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import net.redwarp.android.app.githubcount.data.Project;
+import net.redwarp.android.app.githubcount.data.Repo;
 import net.redwarp.android.app.githubcount.data.adapters.ProjectsAdapter;
 import net.redwarp.android.app.githubcount.database.ProjectDataSource;
 
@@ -32,6 +35,7 @@ import java.util.List;
 public class MainFragment extends Fragment {
     ProjectDataSource mDataSource;
     private ListView mListView;
+    private final EditActionModeCallback mActionModeCallback = new EditActionModeCallback();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,15 @@ public class MainFragment extends Fragment {
                 intent.putExtra("repository", project.repository);
 
                 startActivity(intent);
+            }
+        });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                mActionModeCallback.setSelectedItem(position);
+
+                getActivity().startActionMode(mActionModeCallback);
+                return true;
             }
         });
 
@@ -118,4 +131,47 @@ public class MainFragment extends Fragment {
     }
 
 
+    private class EditActionModeCallback implements ActionMode.Callback {
+        private int mSelectedItem;
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.context_edit, menu);
+
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            if (item.getItemId() == R.id.action_delete) {
+                Project project = (Project) mListView.getAdapter().getItem(mSelectedItem);
+                if(project != null){
+                    mDataSource.open();
+                    mDataSource.deleteProject(project);
+                    mDataSource.close();
+                    ((BaseAdapter)mListView.getAdapter()).notifyDataSetChanged();
+                }
+
+                mode.finish();
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+
+        }
+
+        public void setSelectedItem(int selectedItem) {
+            this.mSelectedItem = selectedItem;
+        }
+    }
 }

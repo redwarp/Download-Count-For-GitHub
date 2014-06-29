@@ -16,6 +16,7 @@
 
 package net.redwarp.android.app.githubcount.data.adapters;
 
+import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import net.redwarp.android.app.githubcount.data.Project;
 import net.redwarp.android.app.githubcount.R;
+import net.redwarp.android.app.githubcount.database.ProjectDataSource;
 
 import java.util.List;
 

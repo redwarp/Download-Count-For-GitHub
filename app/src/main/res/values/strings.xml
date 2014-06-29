@@ -23,5 +23,6 @@
     <string name="action_add">Add</string>
     <string name="list_empty">Nothing to see yet. Hit the "+" button and start adding repos.</string>
     <string name="action_ok">Ok</string>
+    <string name="action_delete">Delete</string>
 
 </resources>
