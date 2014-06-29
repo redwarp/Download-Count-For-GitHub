@@ -123,7 +123,7 @@ public class ProjectDetailFragment extends Fragment {
             getActivity().finish();
             return true;
         } else {
-            return false;
+            return super.onOptionsItemSelected(item);
         }
     }
 }
