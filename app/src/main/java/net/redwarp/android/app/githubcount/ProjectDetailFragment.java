@@ -23,8 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -39,8 +39,9 @@ import java.util.List;
 
 public class ProjectDetailFragment extends Fragment {
 
-    TextView mTitleLabel;
     ExpandableListView mListView;
+    TextView mErrorLabel;
+    ProgressBar mProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,10 @@ public class ProjectDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
 
-        mTitleLabel = (TextView) view.findViewById(R.id.title);
-        mListView = (ExpandableListView) view.findViewById(R.id.listView);
+        mListView = (ExpandableListView) view.findViewById(android.R.id.list);
+        mErrorLabel = (TextView) view.findViewById(R.id.error);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mListView.setEmptyView(view.findViewById(android.R.id.empty));
 
         return view;
     }
@@ -68,7 +71,6 @@ public class ProjectDetailFragment extends Fragment {
         JsonArrayRequest request = new JsonArrayRequest("https://api.github.com/repos/" + user + "/" + repository + "/releases", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) {
-                mTitleLabel.setText("Class = " + jsonArray.getClass());
                 parseReleases(jsonArray);
             }
 
@@ -76,8 +78,8 @@ public class ProjectDetailFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getActivity(), "Request error", Toast.LENGTH_SHORT).show();
-                mTitleLabel.setText("Request failed");
+                mProgressBar.setVisibility(View.GONE);
+                mErrorLabel.setVisibility(View.VISIBLE);
             }
         });
         request.setRetryPolicy(new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

@@ -24,13 +24,13 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@android:id/list"
-        android:visibility="gone"/>
+        android:id="@android:id/list"/>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@android:id/empty"
+        android:visibility="gone"
         android:padding="8dp">
 
         <TextView

@@ -24,5 +24,6 @@
     <string name="list_empty">Nothing to see yet. Hit the "+" button and start adding repos.</string>
     <string name="action_ok">Ok</string>
     <string name="action_delete">Delete</string>
+    <string name="error_empty_repository">There are no releases for this repository, or some weird error occured (your pick)</string>
 
 </resources>
