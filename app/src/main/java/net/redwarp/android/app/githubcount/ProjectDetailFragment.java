@@ -51,7 +51,7 @@ public class ProjectDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_project_detail, container, false);
 
         mListView = (ExpandableListView) view.findViewById(android.R.id.list);
         mErrorLabel = (TextView) view.findViewById(R.id.error);
