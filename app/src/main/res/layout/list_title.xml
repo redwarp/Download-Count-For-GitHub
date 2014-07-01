@@ -16,8 +16,7 @@
   ~ Copyright 2014 Redwarp
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:padding="8dp">
@@ -28,5 +27,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Title"
         android:id="@+id/title"
-        android:textStyle="bold"/>
-</LinearLayout>
+        android:textStyle="bold"
+        android:layout_toLeftOf="@+id/arrow"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_expand"
+        android:layout_alignParentRight="true"
+        android:id="@+id/arrow"/>
+</RelativeLayout>

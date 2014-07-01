@@ -20,10 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import net.redwarp.android.app.githubcount.R;
 import net.redwarp.android.app.githubcount.data.Asset;
 import net.redwarp.android.app.githubcount.data.Release;
-import net.redwarp.android.app.githubcount.R;
 
 import java.util.List;
 
@@ -76,6 +77,9 @@ public class ReleaseAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.list_title, parent, false);
         }
         TextView titleView = (TextView) convertView.findViewById(R.id.title);
+        ImageView arrowView = (ImageView) convertView.findViewById(R.id.arrow);
+        arrowView.setImageResource(isExpanded ? R.drawable.ic_action_collapse : R.drawable.ic_action_expand);
+
         titleView.setText(((Release) getGroup(groupPosition)).name);
 
         return convertView;
