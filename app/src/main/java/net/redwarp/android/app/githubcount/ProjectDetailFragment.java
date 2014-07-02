@@ -118,14 +118,4 @@ public class ProjectDetailFragment extends Fragment {
 
         return fragment;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            getActivity().finish();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
 }

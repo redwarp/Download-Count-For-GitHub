@@ -18,6 +18,7 @@ package net.redwarp.android.app.githubcount;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 public class ProjectDetailActivity extends Activity {
 
@@ -32,6 +33,16 @@ public class ProjectDetailActivity extends Activity {
 
             ProjectDetailFragment fragment = ProjectDetailFragment.newInstance(user, repository);
             getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 }
