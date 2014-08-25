@@ -17,9 +17,9 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:padding="8dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -29,10 +29,20 @@
         android:id="@+id/title"
         android:textStyle="bold"
         android:layout_toLeftOf="@+id/arrow"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:id="@+id/name"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@id/title"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_action_expand"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:id="@+id/arrow"/>
 </RelativeLayout>

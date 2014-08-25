@@ -19,6 +19,7 @@ package net.redwarp.android.app.githubcount;
 import android.app.Application;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import net.danlew.android.joda.JodaTimeAndroid;
 import net.redwarp.android.app.githubcount.network.OkHttpStack;
 
 public class MyApplication extends Application {
@@ -34,5 +35,6 @@ public class MyApplication extends Application {
         super.onCreate();
 
         requestQueue = Volley.newRequestQueue(this, new OkHttpStack());
+        JodaTimeAndroid.init(this);
     }
 }

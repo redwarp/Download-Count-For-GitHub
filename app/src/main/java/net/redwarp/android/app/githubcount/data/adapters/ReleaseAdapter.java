@@ -77,10 +77,19 @@ public class ReleaseAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.list_title, parent, false);
         }
         TextView titleView = (TextView) convertView.findViewById(R.id.title);
+        TextView nameView = (TextView) convertView.findViewById(R.id.name);
         ImageView arrowView = (ImageView) convertView.findViewById(R.id.arrow);
         arrowView.setImageResource(isExpanded ? R.drawable.ic_action_collapse : R.drawable.ic_action_expand);
 
-        titleView.setText(((Release) getGroup(groupPosition)).name);
+        titleView.setText(((Release) getGroup(groupPosition)).tagName);
+
+        String name = ((Release) getGroup(groupPosition)).name;
+        if (name == null || "".equals(name)) {
+            nameView.setVisibility(View.GONE);
+        } else {
+            nameView.setVisibility(View.VISIBLE);
+            nameView.setText(((Release) getGroup(groupPosition)).name);
+        }
 
         return convertView;
     }

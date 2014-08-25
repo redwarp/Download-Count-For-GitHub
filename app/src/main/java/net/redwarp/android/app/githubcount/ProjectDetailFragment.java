@@ -19,7 +19,6 @@ package net.redwarp.android.app.githubcount;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -35,6 +34,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProjectDetailFragment extends Fragment {
@@ -100,8 +101,20 @@ public class ProjectDetailFragment extends Fragment {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject object = jsonArray.optJSONObject(i);
             Release release = new Release(object);
-            releases.add(release);
+            if (release.assets.size() > 0) {
+                releases.add(release);
+            }
         }
+        Collections.sort(releases, new Comparator<Release>() {
+            @Override
+            public int compare(Release lhs, Release rhs) {
+                if (lhs.createdDate != null && rhs.createdDate != null) {
+                    return rhs.createdDate.compareTo(lhs.createdDate);
+                } else {
+                    return 0;
+                }
+            }
+        });
 
         mListView.setAdapter(new ReleaseAdapter(releases));
         for (int i = 0; i < releases.size(); i++) {

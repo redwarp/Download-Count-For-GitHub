@@ -16,6 +16,9 @@
 
 package net.redwarp.android.app.githubcount.data;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,12 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Release {
+    public String tagName;
     public String name;
     public List<Asset> assets;
-
+    public DateTime publishedDate;
+    public DateTime createdDate;
 
     public Release(JSONObject jsonObject) {
-        name = jsonObject.optString("tag_name");
+        tagName = jsonObject.optString("tag_name");
+        name = jsonObject.optString("name");
 
         try {
             JSONArray assetArray = jsonObject.getJSONArray("assets");
@@ -39,6 +45,16 @@ public class Release {
             }
         } catch (JSONException e) {
             assets = new ArrayList<>(0);
+        }
+
+        DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
+        String publishedAtString = jsonObject.optString("published_at");
+        if (publishedAtString != null) {
+            publishedDate = parser.parseDateTime(publishedAtString);
+        }
+        String createdAtString = jsonObject.optString("created_at");
+        if (publishedAtString != null) {
+            createdDate = parser.parseDateTime(createdAtString);
         }
     }
 }
