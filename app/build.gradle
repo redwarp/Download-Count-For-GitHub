@@ -19,7 +19,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.12.2'
     }
 }
 apply plugin: 'android'
@@ -29,8 +29,8 @@ repositories {
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.0.2"
 
     defaultConfig {
         minSdkVersion 14
@@ -56,6 +56,7 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile 'com.squareup.okhttp:okhttp:2.0.+'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.+'
-    compile 'com.android.support:support-annotations:19.+'
+    compile 'com.android.support:support-annotations:21.+'
     compile 'net.danlew:android.joda:2.4.0'
+    compile "com.android.support:appcompat-v7:21.0.+"
 }

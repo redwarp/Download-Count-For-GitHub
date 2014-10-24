@@ -21,11 +21,12 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
 /**
  * Created by Redwarp on 29/06/2014.
  */
-public class SingleFragmentActivity extends Activity {
+public class SingleFragmentActivity extends ActionBarActivity {
 
 
     private static final String FRAGMENT_NAME = "fragment_name";

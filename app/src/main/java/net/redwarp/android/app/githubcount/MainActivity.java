@@ -16,17 +16,17 @@
 
 package net.redwarp.android.app.githubcount;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
             MainFragment fragment = new MainFragment();
-            getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
+            getSupportFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
         }
     }
 }

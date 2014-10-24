@@ -18,8 +18,9 @@ package net.redwarp.android.app.githubcount;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
-public class AddSimpleActivity extends Activity {
+public class AddSimpleActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

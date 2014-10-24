@@ -17,16 +17,16 @@
 package net.redwarp.android.app.githubcount;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.view.*;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import net.redwarp.android.app.githubcount.data.Project;
-import net.redwarp.android.app.githubcount.data.Repo;
 import net.redwarp.android.app.githubcount.data.adapters.ProjectsAdapter;
 import net.redwarp.android.app.githubcount.database.ProjectDataSource;
 
@@ -72,7 +72,7 @@ public class MainFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 mActionModeCallback.setSelectedItem(position);
 
-                getActivity().startActionMode(mActionModeCallback);
+                ((ActionBarActivity)getActivity()).startSupportActionMode(mActionModeCallback);
                 return true;
             }
         });
@@ -151,7 +151,7 @@ public class MainFragment extends Fragment {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             if (item.getItemId() == R.id.action_delete) {
                 Project project = (Project) mListView.getAdapter().getItem(mSelectedItem);
-                if(project != null){
+                if (project != null) {
                     mDataSource.open();
                     mDataSource.deleteProject(project);
                     mDataSource.close();
