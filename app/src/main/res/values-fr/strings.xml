@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Download count for GitHub</string>
+    <string name="action_add">Ajouter</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_ok">Ok</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="list_empty">Cliquez sur le bouton "+" pour ajouter votre premier dépot.</string>
+    <string name="error_empty_repository">Une erreur est survenue, ou alors le depos ne contient pas de délivrables (au choix)</string>
+</resources>
