@@ -32,7 +32,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
       String repository = getIntent().getStringExtra("repository");
 
       ProjectDetailFragment fragment = ProjectDetailFragment.newInstance(user, repository);
-      getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
+      getSupportFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
     }
   }
 

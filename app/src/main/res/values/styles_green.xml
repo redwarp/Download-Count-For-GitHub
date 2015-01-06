@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Theme.Green" parent="Theme.AppCompat">
+    <style name="Theme.Green" parent="Theme.AppCompat.Light">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_green</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Green</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Green</item>
@@ -29,6 +29,7 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_green</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_green</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Green</item>
+        <item name="colorPrimary">#224436</item>
         
                 <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Green.Widget</item>

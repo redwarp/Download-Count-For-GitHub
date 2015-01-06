@@ -16,11 +16,12 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:tools="http://schemas.android.com/tools"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
       tools:context="net.redwarp.android.app.githubcount.ProjectDetailActivity">
     <item
         android:id="@+id/action_add"
         android:title="@string/action_add"
         android:icon="@drawable/ic_action_new"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         />
 </menu>

@@ -26,7 +26,7 @@ public class AddSimpleActivity extends ActionBarActivity {
     super.onCreate(savedInstanceState);
 
     if (savedInstanceState == null) {
-      getFragmentManager().beginTransaction().add(android.R.id.content, new AddSimpleFragment())
+      getSupportFragmentManager().beginTransaction().add(android.R.id.content, new AddSimpleFragment())
           .commit();
     }
   }
