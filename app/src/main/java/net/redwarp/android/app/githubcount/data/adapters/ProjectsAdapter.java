@@ -16,52 +16,53 @@
 
 package net.redwarp.android.app.githubcount.data.adapters;
 
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import net.redwarp.android.app.githubcount.data.Project;
+
 import net.redwarp.android.app.githubcount.R;
-import net.redwarp.android.app.githubcount.database.ProjectDataSource;
+import net.redwarp.android.app.githubcount.data.Project;
 
 import java.util.List;
 
 public class ProjectsAdapter extends BaseAdapter {
-    private final List<Project> mProjects;
 
-    public ProjectsAdapter(List<Project> projects) {
-        mProjects = projects;
+  private final List<Project> mProjects;
+
+  public ProjectsAdapter(List<Project> projects) {
+    mProjects = projects;
+  }
+
+  @Override
+  public int getCount() {
+    return mProjects.size();
+  }
+
+  @Override
+  public Object getItem(int position) {
+    return mProjects.get(position);
+  }
+
+  @Override
+  public long getItemId(int position) {
+    return position;
+  }
+
+  @Override
+  public View getView(int position, View convertView, ViewGroup parent) {
+    if (convertView == null) {
+      convertView =
+          LayoutInflater.from(parent.getContext()).inflate(R.layout.list_project, parent, false);
     }
+    TextView user = (TextView) convertView.findViewById(R.id.user);
+    TextView repository = (TextView) convertView.findViewById(R.id.repository);
+    Project project = (Project) getItem(position);
 
-    @Override
-    public int getCount() {
-        return mProjects.size();
-    }
+    user.setText(project.user);
+    repository.setText(project.repository);
 
-    @Override
-    public Object getItem(int position) {
-        return mProjects.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_project, parent, false);
-        }
-        TextView user = (TextView) convertView.findViewById(R.id.user);
-        TextView repository = (TextView) convertView.findViewById(R.id.repository);
-        Project project = (Project) getItem(position);
-
-        user.setText(project.user);
-        repository.setText(project.repository);
-
-        return convertView;
-    }
+    return convertView;
+  }
 }

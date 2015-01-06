@@ -16,34 +16,33 @@
 
 package net.redwarp.android.app.githubcount;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 public class ProjectDetailActivity extends ActionBarActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (savedInstanceState == null) {
-            String user = getIntent().getStringExtra("user");
-            String repository = getIntent().getStringExtra("repository");
+    if (savedInstanceState == null) {
+      String user = getIntent().getStringExtra("user");
+      String repository = getIntent().getStringExtra("repository");
 
-            ProjectDetailFragment fragment = ProjectDetailFragment.newInstance(user, repository);
-            getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
-        }
+      ProjectDetailFragment fragment = ProjectDetailFragment.newInstance(user, repository);
+      getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
     }
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      finish();
+      return true;
+    } else {
+      return super.onOptionsItemSelected(item);
     }
+  }
 }

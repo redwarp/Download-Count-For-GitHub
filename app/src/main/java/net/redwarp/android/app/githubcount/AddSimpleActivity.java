@@ -16,17 +16,18 @@
 
 package net.redwarp.android.app.githubcount;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
 public class AddSimpleActivity extends ActionBarActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction().add(android.R.id.content, new AddSimpleFragment()).commit();
-        }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    if (savedInstanceState == null) {
+      getFragmentManager().beginTransaction().add(android.R.id.content, new AddSimpleFragment())
+          .commit();
     }
+  }
 }

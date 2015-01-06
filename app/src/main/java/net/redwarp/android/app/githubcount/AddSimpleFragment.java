@@ -20,53 +20,59 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
-import net.redwarp.android.app.githubcount.R;
 
 public class AddSimpleFragment extends Fragment {
-    EditText userEditText;
-    EditText repositoryEditText;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+  EditText userEditText;
+  EditText repositoryEditText;
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fragment_simple_add, container, false);
+
+    userEditText = (EditText) view.findViewById(R.id.userEditText);
+    repositoryEditText = (EditText) view.findViewById(R.id.repositoryEditText);
+
+    return view;
+  }
+
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    menu.clear();
+
+    inflater.inflate(R.menu.add_simple, menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_add) {
+      onOkClicked();
+
+      return true;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_simple_add, container, false);
+    return super.onOptionsItemSelected(item);
+  }
 
-        userEditText = (EditText) view.findViewById(R.id.userEditText);
-        repositoryEditText = (EditText) view.findViewById(R.id.repositoryEditText);
-
-        return view;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-
-        inflater.inflate(R.menu.add_simple, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_add) {
-            onOkClicked();
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void onOkClicked() {
-        Intent intent = new Intent();
-        intent.putExtra("user", userEditText.getText().toString());
-        intent.putExtra("repository", repositoryEditText.getText().toString());
-        getActivity().setResult(Activity.RESULT_OK, intent);
-        getActivity().finish();
-    }
+  private void onOkClicked() {
+    Intent intent = new Intent();
+    intent.putExtra("user", userEditText.getText().toString());
+    intent.putExtra("repository", repositoryEditText.getText().toString());
+    getActivity().setResult(Activity.RESULT_OK, intent);
+    getActivity().finish();
+  }
 }
