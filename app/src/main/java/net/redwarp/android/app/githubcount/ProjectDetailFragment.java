@@ -28,10 +28,11 @@ import android.widget.TextView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 
 import net.redwarp.android.app.githubcount.data.Release;
 import net.redwarp.android.app.githubcount.data.adapters.ReleaseAdapter;
+import net.redwarp.android.app.githubcount.network.GithubArrayRequest;
+import net.redwarp.android.app.githubcount.network.ReleaseRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -73,24 +74,30 @@ public class ProjectDetailFragment extends Fragment {
     String user = getArguments().getString("user");
     String repository = getArguments().getString("repository");
 
-    JsonArrayRequest
+    GithubArrayRequest<List<Release>>
         request =
-        new JsonArrayRequest(
-            "https://api.github.com/repos/" + user + "/" + repository + "/releases",
-            new Response.Listener<JSONArray>() {
+        new ReleaseRequest(
+            user, repository,
+            new Response.Listener<List<Release>>() {
               @Override
-              public void onResponse(JSONArray jsonArray) {
-                parseReleases(jsonArray);
+              public void onResponse(List<Release> response) {
+                mListView.setAdapter(new ReleaseAdapter(response));
+                for (int i = 0; i < response.size(); i++) {
+                  mListView.expandGroup(i);
+                }
               }
-
-
             }, new Response.ErrorListener() {
           @Override
-          public void onErrorResponse(VolleyError volleyError) {
+          public void onErrorResponse(VolleyError error) {
             mProgressBar.setVisibility(View.GONE);
             mErrorLabel.setVisibility(View.VISIBLE);
           }
-        });
+        }) {
+          @Override
+          protected List<Release> parseJson(JSONArray jsonArray) {
+            return parseReleases(jsonArray);
+          }
+        };
     request.setRetryPolicy(new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                                   DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     request.setTag(this);
@@ -105,7 +112,7 @@ public class ProjectDetailFragment extends Fragment {
     MyApplication.getRequestQueue().cancelAll(this);
   }
 
-  private void parseReleases(JSONArray jsonArray) {
+  private List<Release> parseReleases(JSONArray jsonArray) {
     List<Release> releases = new ArrayList<>(jsonArray.length());
     for (int i = 0; i < jsonArray.length(); i++) {
       JSONObject object = jsonArray.optJSONObject(i);
@@ -124,11 +131,7 @@ public class ProjectDetailFragment extends Fragment {
         }
       }
     });
-
-    mListView.setAdapter(new ReleaseAdapter(releases));
-    for (int i = 0; i < releases.size(); i++) {
-      mListView.expandGroup(i);
-    }
+    return releases;
   }
 
   public static ProjectDetailFragment newInstance(String user, String repository) {
